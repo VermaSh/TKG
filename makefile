@@ -45,6 +45,7 @@ else ifeq ($(UNAME_OS),OS/390)
 # The issue is still being investigated. See backlog/issues/1424
 # set -Dfile.encoding=IBM-1047 for JDK21+ zOS for now
 ifeq ($(shell test $(JDK_VERSION) -ge 21; echo $$?),0)
+export IBM_JAVA_OPTIONS="-Xtrace:none,maximal=mt,methods={java/io/Input*(),com/ibm/jvm/io/Console*(),sun/nio/cs/Stream*(),java/lang/Process*()},resumecount=1,trigger=method{sun/nio/cs/StreamEncoder*,jstacktrace,resumethis},trigger=method{java/lang/Process*,jstacktrace,resumethis},trigger=method{com/ibm/jvm/io/Console*,jstacktrace,resumethis},trigger=method{java/io/InputStream*,jstacktrace,resumethis},trigger=method{sun/nio/cs/StreamDecoder*,jstacktrace,resumethis},output=xtrace_%p_%d_%t_#.trace -Xjit:exclude={java/io/Input*|com/ibm/jvm/io/Console*|sun/nio/cs/Stream*|java/lang/Process*},dontinline={java/io/Input*|com/ibm/jvm/io/Console*|sun/nio/cs/Stream*|java/lang/Process*}"
 #export IBM_JAVA_OPTIONS="-Dfile.encoding=IBM-1047"
 #$(info export IBM_JAVA_OPTIONS="-Dfile.encoding=IBM-1047")
 endif
